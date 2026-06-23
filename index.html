@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Numa OS — Building creator led ventures</title>
+  <meta name="description" content="We partner with the world's most magnetic creators to launch game-changing products. The operating system behind Africa's creator economy.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #E8E7DD;
+      --green:  #0E3A2A;
+      --orange: #F36520;
+      --lime:   #D7F58E;
+      --sage:   #D9E5BA;
+      --black:  #000000;
+      --gray:   #494949;
+      --mid:    #5E5E5E;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--green);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 60px;
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 100;
+    }
+    .nav-links { display: flex; gap: 56px; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--black);
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      transition: opacity .2s;
+    }
+    .nav-links a:hover { opacity: .6; }
+    .nav-links a.active { color: var(--orange); text-decoration: underline; }
+    .nav-logo { width: 64px; height: 64px; display: block; flex-shrink: 0; }
+
+    /* ── HERO ── */
+    .hero {
+      padding: 60px 60px 80px;
+      text-align: center;
+    }
+    .badge-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--sage);
+      border-radius: 65px;
+      padding: 14px 27px;
+      margin-bottom: 48px;
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      color: var(--black);
+    }
+    .badge-circles { display: flex; align-items: center; }
+    .badge-circles .c {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      display: block;
+    }
+    .c1 { background: #6B8B7D; margin-right: -10px; z-index: 3; }
+    .c2 { background: var(--orange); margin-right: -10px; z-index: 2; }
+    .c3 { background: var(--green); z-index: 1; }
+
+    .hero h1 {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(44px, 5.6vw, 80px);
+      font-weight: 500;
+      line-height: 102%;
+      letter-spacing: -0.05em;
+      color: var(--green);
+      max-width: 1036px;
+      margin: 0 auto 52px;
+    }
+    .pill-inline {
+      display: inline-block;
+      background: var(--green);
+      border-radius: 65px;
+      padding: 4px 28px 8px;
+      vertical-align: middle;
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(36px, 3.8vw, 54px);
+      letter-spacing: -0.05em;
+      color: var(--lime);
+      line-height: 102%;
+    }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      border-radius: 54px;
+      padding: 26px 38px 27px 38px;
+      font-size: 21px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity .2s;
+    }
+    .btn:hover { opacity: .88; }
+    .dot {
+      width: 15px; height: 15px;
+      background: var(--lime);
+      border-radius: 50%;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+
+    /* ── CREATOR SCROLL ── */
+    .creators-scroll { padding: 0 0 80px 60px; }
+    .creators-track {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 8px;
+      padding-right: 60px;
+    }
+    .creators-track::-webkit-scrollbar { display: none; }
+
+    .creator-card {
+      flex-shrink: 0;
+      width: 380px;
+      height: 551px;
+      border-radius: 30px;
+      position: relative;
+      overflow: hidden;
+    }
+    .creator-card img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top;
+    }
+    .card-bg { width: 100%; height: 100%; display: block; }
+
+    .card-tag {
+      position: absolute;
+      bottom: 24px; left: 24px;
+      border-radius: 63px;
+      padding: 11px 20px 11px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 30px;
+      letter-spacing: -0.05em;
+      line-height: 153%;
+      text-transform: capitalize;
+    }
+    .card-tag.orange { background: var(--orange); color: var(--lime); }
+    .card-tag.dark   { background: var(--green);  color: var(--lime); }
+
+    .card-tag-top {
+      position: absolute;
+      top: 24px; left: 24px;
+      border-radius: 63px;
+      padding: 11px 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 26px;
+      letter-spacing: -0.05em;
+      line-height: 153%;
+      text-transform: capitalize;
+    }
+    .card-tag-top.orange { background: var(--orange); color: var(--lime); }
+    .card-tag-top.dark   { background: var(--green);  color: var(--lime); }
+    .card-tag-top .dot-dark {
+      width: 13px; height: 13px;
+      background: var(--green);
+      border-radius: 50%;
+    }
+
+    /* ── THE HOUSE ── */
+    .house { padding: 80px 60px; }
+    .section-tag {
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      color: var(--orange);
+      margin-bottom: 20px;
+    }
+    .house-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: end;
+      margin-bottom: 48px;
+    }
+    .house-header h2 {
+      font-size: clamp(36px, 6vw, 86px);
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      line-height: 83%;
+    }
+    .house-header p {
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      line-height: 130%;
+      color: var(--green);
+    }
+    .creator-cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .house-card {
+      border-radius: 32px;
+      overflow: hidden;
+      height: 728px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+    .house-card-img {
+      flex: 1;
+      background-size: cover;
+      background-position: top center;
+      min-height: 380px;
+    }
+    .house-card-body {
+      padding: 28px;
+      color: #fff;
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      line-height: 153%;
+    }
+    .beauty-card { background: var(--orange); }
+    .beauty-card .house-card-img { background-color: #d96020; }
+    .podcaster-card { background: #C4A8D0; }
+    .podcaster-card .house-card-img { background-color: #b096c0; }
+
+    /* gradient overlay on bottom of house cards */
+    .house-card-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 60%;
+      border-radius: 0 0 32px 32px;
+      pointer-events: none;
+    }
+    .beauty-card .house-card-overlay {
+      background: linear-gradient(180deg, rgba(243,101,32,0) 0%, #F36520 102%);
+    }
+    .podcaster-card .house-card-overlay {
+      background: linear-gradient(180deg, rgba(243,101,32,0) 0%, #C4A8D0 102%);
+    }
+
+    /* ── TURNING ── */
+    .turning {
+      background: var(--sage);
+      padding: 72px 60px;
+    }
+    .turning h2 {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(36px, 5.8vw, 83px);
+      letter-spacing: -0.05em;
+      color: var(--green);
+      line-height: 83%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 16px;
+    }
+    .turning h2 .plain { line-height: 1.4; }
+    .pill-dark {
+      background: var(--green);
+      color: var(--lime);
+      border-radius: 56px;
+      padding: 10px 36px 14px;
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(28px, 4.5vw, 64px);
+      letter-spacing: -0.05em;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    /* ── SERVICES ── */
+    .services { padding: 80px 60px; }
+    .services-header { margin-bottom: 40px; }
+    .services-header h2 {
+      font-size: clamp(36px, 6vw, 86px);
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      line-height: 83%;
+      margin-top: 8px;
+    }
+    .services-layout {
+      display: grid;
+      grid-template-columns: 578px 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+    .services-img-card {
+      border-radius: 32px;
+      overflow: hidden;
+      height: 728px;
+      position: relative;
+      background: #2A5A3A;
+    }
+    .services-img-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .services-img-caption {
+      position: absolute;
+      bottom: 28px; left: 28px;
+      color: #fff;
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      line-height: 1.2;
+    }
+    .services-list { list-style: none; }
+    .service-item {
+      padding: 32px 0;
+      border-top: 1px solid #B0ADA4;
+    }
+    .service-num {
+      color: var(--orange);
+      font-size: 24px;
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      margin-bottom: 10px;
+    }
+    .service-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      align-items: start;
+    }
+    .service-row h3 {
+      font-size: 26px;
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      color: var(--black);
+      line-height: 1.2;
+    }
+    .service-row p {
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      color: var(--gray);
+      line-height: 139%;
+    }
+
+    /* ── PROCESS ── */
+    .process {
+      background: rgba(217, 229, 186, 0.3);
+      padding: 80px 60px;
+    }
+    .process-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 72px;
+    }
+    .process-header h2 {
+      font-size: clamp(36px, 6vw, 86px);
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      line-height: 86%;
+      max-width: 514px;
+    }
+    .process-grid { display: grid; grid-template-columns: 1fr 1fr; }
+    .process-item { padding: 40px 0; border-top: 1px solid #B0ADA4; }
+    .process-item:nth-child(odd)  { padding-right: 80px; }
+    .process-item:nth-child(even) { padding-left: 80px; border-left: 1px solid #B0ADA4; }
+    .process-num {
+      color: var(--orange);
+      font-size: 24px;
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      margin-bottom: 12px;
+    }
+    .process-item h3 {
+      font-size: 50px;
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      color: var(--black);
+      line-height: 102%;
+      margin-bottom: 12px;
+    }
+    .process-item p {
+      font-size: 26px;
+      font-weight: 400;
+      letter-spacing: -0.06em;
+      color: var(--black);
+      line-height: 135%;
+    }
+    .process-cta { text-align: center; margin-top: 72px; }
+
+    /* ── CLIENTS ── */
+    .clients { padding: 80px 0 80px 60px; }
+    .clients-top {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 40px;
+      align-items: end;
+      margin-bottom: 48px;
+      padding-right: 60px;
+    }
+    .clients-top h2 {
+      font-size: clamp(28px, 4vw, 56px);
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      line-height: 1.15;
+    }
+    .clients-track {
+      display: flex;
+      gap: 24px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-right: 60px;
+    }
+    .clients-track::-webkit-scrollbar { display: none; }
+    .client-card {
+      flex-shrink: 0;
+      width: 380px;
+      height: 551px;
+      border-radius: 30px;
+      overflow: hidden;
+      position: relative;
+    }
+    .client-card img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: top;
+    }
+    .client-card-bg { width: 100%; height: 100%; display: block; }
+    .client-name {
+      position: absolute;
+      bottom: 28px; left: 28px;
+      color: #fff;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: -0.05em;
+      line-height: 1.2;
+    }
+
+    /* ── LET'S TALK ── */
+    .lets-talk {
+      padding: 100px 60px;
+      text-align: center;
+    }
+    .lets-talk h2 {
+      font-size: clamp(24px, 3.5vw, 44px);
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      line-height: 139%;
+      max-width: 868px;
+      margin: 16px auto 52px;
+      color: var(--gray);
+    }
+
+    /* ── FOOTER ── */
+    footer { border-top: 2px solid #A5A5A5; }
+    .footer-links {
+      display: flex;
+      justify-content: space-around;
+      padding: 40px 130px;
+    }
+    .footer-links a {
+      text-decoration: none;
+      color: var(--black);
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      transition: opacity .2s;
+    }
+    .footer-links a:hover { opacity: .6; }
+    .footer-email {
+      padding: 0 28px;
+      overflow: hidden;
+    }
+    .footer-email a {
+      display: block;
+      font-size: clamp(32px, 9vw, 130px);
+      font-weight: 600;
+      letter-spacing: -0.05em;
+      color: var(--black);
+      text-decoration: none;
+      line-height: 102%;
+      text-align: center;
+      transition: opacity .2s;
+    }
+    .footer-email a:hover { opacity: .7; }
+    .footer-bar {
+      background: var(--green);
+      color: #fff;
+      text-align: center;
+      padding: 24px;
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      margin-top: 40px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      nav { padding: 16px 24px; }
+      .nav-links { gap: 24px; }
+      .nav-links a { font-size: 16px; }
+      .hero { padding: 40px 24px 60px; }
+      .creators-scroll { padding-left: 24px; }
+      .house { padding: 60px 24px; }
+      .house-header { grid-template-columns: 1fr; gap: 20px; }
+      .creator-cards-grid { grid-template-columns: 1fr; }
+      .house-card { height: 520px; }
+      .turning { padding: 60px 24px; }
+      .services { padding: 60px 24px; }
+      .services-layout { grid-template-columns: 1fr; }
+      .services-img-card { height: 400px; }
+      .service-row { grid-template-columns: 1fr; gap: 8px; }
+      .process { padding: 60px 24px; }
+      .process-header { flex-direction: column; gap: 12px; }
+      .process-grid { grid-template-columns: 1fr; }
+      .process-item:nth-child(odd)  { padding-right: 0; }
+      .process-item:nth-child(even) { padding-left: 0; border-left: none; }
+      .process-item h3 { font-size: 32px; }
+      .process-item p  { font-size: 18px; }
+      .clients { padding: 60px 0 60px 24px; }
+      .clients-top { grid-template-columns: 1fr; padding-right: 24px; }
+      .lets-talk { padding: 72px 24px; }
+      .footer-links { padding: 32px 24px; flex-wrap: wrap; gap: 20px; justify-content: flex-start; }
+      .footer-email { padding: 0 16px; }
+      .footer-bar { margin-top: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <ul class="nav-links">
+    <li><a href="#about">About Us</a></li>
+    <li><a href="#stories">Stories</a></li>
+  </ul>
+
+  <a href="/" class="nav-logo" aria-label="Numa OS">
+    <svg viewBox="0 0 91 91" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="45.5" cy="45.5" r="45.5" fill="#0E3A2A" stroke="#E1FBB3" stroke-width="1.66"/>
+      <!-- vertical stem -->
+      <line x1="45.5" y1="19" x2="45.5" y2="88" stroke="#E1FBB3" stroke-width="1.25" stroke-linecap="round"/>
+      <!-- right branches -->
+      <line x1="45.5" y1="72" x2="69" y2="72" stroke="#E1FBB3" stroke-width="1.25" stroke-linecap="round"/>
+      <line x1="45.5" y1="62" x2="65" y2="62" stroke="#E1FBB3" stroke-width="1.25" stroke-linecap="round"/>
+      <line x1="45.5" y1="52" x2="59" y2="52" stroke="#E1FBB3" stroke-width="1.25" stroke-linecap="round"/>
+      <line x1="45.5" y1="42" x2="53" y2="42" stroke="#E1FBB3" stroke-width="1.25" stroke-linecap="round"/>
+      <line x1="45.5" y1="32" x2="48" y2="32" stroke="#E1FBB3" stroke-width="1.25" stroke-linecap="round"/>
+      <!-- left branches (mirror) -->
+      <line x1="45.5" y1="72" x2="22" y2="72" stroke="#E1FBB3" stroke-width="1.25" stroke-linecap="round"/>
+      <line x1="45.5" y1="62" x2="26" y2="62" stroke="#E1FBB3" stroke-width="1.25" stroke-linecap="round"/>
+      <line x1="45.5" y1="52" x2="32" y2="52" stroke="#E1FBB3" stroke-width="1.25" stroke-linecap="round"/>
+      <line x1="45.5" y1="42" x2="38" y2="42" stroke="#E1FBB3" stroke-width="1.25" stroke-linecap="round"/>
+      <line x1="45.5" y1="32" x2="43" y2="32" stroke="#E1FBB3" stroke-width="1.25" stroke-linecap="round"/>
+    </svg>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#clients">Clients</a></li>
+    <li><a href="#services">Services</a></li>
+  </ul>
+</nav>
+
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="badge-pill">
+    <div class="badge-circles">
+      <span class="c c1"></span>
+      <span class="c c2"></span>
+      <span class="c c3"></span>
+    </div>
+    Building creator led ventures
+  </div>
+
+  <h1>We partner with the world's most <span class="pill-inline">magnetic creators</span> to launch game-changing products.</h1>
+
+  <a href="#contact" class="btn">Let's build together <span class="dot"></span></a>
+</section>
+
+
+<!-- ── CREATOR SCROLL ── -->
+<section class="creators-scroll">
+  <div class="creators-track">
+
+    <div class="creator-card">
+      <img src="Images/67cc9cd35b2cd45b86745d928369104b53318748.png" alt="UGC Creator">
+      <div class="card-tag orange">UGC creator <span class="dot"></span></div>
+    </div>
+
+    <div class="creator-card">
+      <img src="Images/5c6b85320788027e314c03481eda2f377627ac74.png" alt="Lifestyle Creator">
+      <div class="card-tag dark">lifestyle creator <span class="dot"></span></div>
+    </div>
+
+    <div class="creator-card">
+      <img src="Images/4ff55cd64081f5805fdbbb5b7189b56d95fe8af3.png" alt="Fashion Creator">
+      <div class="card-tag orange">Fashion creator <span class="dot"></span></div>
+    </div>
+
+    <div class="creator-card">
+      <img src="Images/1bbd03242f6643549082c867c7366d3e5f21c008.png" alt="YouTuber">
+      <div class="card-tag dark">YouTuber <span class="dot"></span></div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ── THE HOUSE ── -->
+<section class="house" id="about">
+  <p class="section-tag">[THE HOUSE]</p>
+  <div class="house-header">
+    <h2>Numa is a house of brands.</h2>
+    <p>We're building the operating system for consumer brands in partnership with creators.</p>
+  </div>
+
+  <div class="creator-cards-grid">
+
+    <div class="house-card beauty-card">
+      <div class="card-tag-top dark">Beauty creator <span class="dot"></span></div>
+      <div class="house-card-img" style="background-image:url('Images/ad3c91d956341041644c1e52b611933cb556cc34.png');background-size:cover;background-position:top center;"></div>
+      <div class="house-card-overlay"></div>
+      <div class="house-card-body">
+        A creator brings trust, taste, and millions of people who already love them. Numa brings everything else that is required to build a sustainable company, and together we launch a real company.
+      </div>
+    </div>
+
+    <div class="house-card podcaster-card">
+      <div class="card-tag-top dark">Podcaster <span class="dot"></span></div>
+      <div class="house-card-img" style="background-image:url('Images/aafcb30555c0fd10130058fda8ae98302a2e5623.png');background-size:cover;background-position:top center;"></div>
+      <div class="house-card-overlay"></div>
+      <div class="house-card-body">
+        We do not manage talent. We build companies with them. Every brand in the Numa portfolio is engineered to do one thing; earn a permanent place in your home. On the shelf. In the fridge. In your routine.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ── TURNING ── -->
+<section class="turning">
+  <h2>
+    <span class="plain">Turning</span>
+    <span class="pill-dark">Creator Influence</span>
+    <span class="plain">into</span>
+    <span class="pill-dark">Equity</span>
+  </h2>
+</section>
+
+
+<!-- ── SERVICES ── -->
+<section class="services" id="services">
+  <div class="services-header">
+    <p class="section-tag">[OUR SERVICES]</p>
+    <h2>What Numa brings.</h2>
+  </div>
+
+  <div class="services-layout">
+
+    <div class="services-img-card">
+      <img src="Images/c8ce7cef68bc2d7918fc7bf3f6e46b9effc17f53.png" alt="LANA Spicy Snails">
+      <div class="card-tag-top orange">Product <span class="dot"></span></div>
+      <div class="services-img-caption">LANA<br>Spicy Snails</div>
+    </div>
+
+    <ul class="services-list">
+      <li class="service-item">
+        <p class="service-num">[001]</p>
+        <div class="service-row">
+          <h3>Brand &amp; Identity<br>Naming, positioning,<br>and design</h3>
+          <p>The world that makes people choose you over everything else on the shelf.</p>
+        </div>
+      </li>
+      <li class="service-item">
+        <p class="service-num">[002]</p>
+        <div class="service-row">
+          <h3>Product &amp;<br>Supply Chain</h3>
+          <p>From formulation to factory floor. We build the product and the supply behind it, engineered for margin from day one.</p>
+        </div>
+      </li>
+      <li class="service-item">
+        <p class="service-num">[003]</p>
+        <div class="service-row">
+          <h3>Marketing &amp;<br>Distribution</h3>
+          <p>We direct the creator led launches and the channels to put product in every home across our markets.</p>
+        </div>
+      </li>
+      <li class="service-item">
+        <p class="service-num">[004]</p>
+        <div class="service-row">
+          <h3>Capital &amp;<br>Operators</h3>
+          <p>The funding to move, and the operators to run the company long after launch day.</p>
+        </div>
+      </li>
+    </ul>
+
+  </div>
+</section>
+
+
+<!-- ── PROCESS ── -->
+<section class="process">
+  <div class="process-header">
+    <h2>How we build a brand from nothing.</h2>
+    <p class="section-tag">[OUR PROCESS]</p>
+  </div>
+
+  <div class="process-grid">
+    <div class="process-item">
+      <p class="process-num">[001]</p>
+      <h3>Identify the formlessness</h3>
+      <p>We find problems that if solved, raise the quality of life for the average person. That gap is where every brand begins.</p>
+    </div>
+    <div class="process-item">
+      <p class="process-num">[002]</p>
+      <h3>Partner</h3>
+      <p>We partner with one exceptional creator per brand, and launch with their audience as our launchpad.</p>
+    </div>
+    <div class="process-item">
+      <p class="process-num">[003]</p>
+      <h3>Build</h3>
+      <p>We are builders at our core. Product, supply chain, identity, go-to-market, distribution — we stand up the whole company, built for margin from day one.</p>
+    </div>
+    <div class="process-item">
+      <p class="process-num">[004]</p>
+      <h3>Launch</h3>
+      <p>We go to market with the creator's audience as day-one demand, never an afterthought.</p>
+    </div>
+    <div class="process-item">
+      <p class="process-num">[005]</p>
+      <h3>Scale</h3>
+      <p>We push the brand into new markets, channels, and homes across Africa, the UK, and the Middle East.</p>
+    </div>
+    <div class="process-item">
+      <p class="process-num">[006]</p>
+      <h3>Compound</h3>
+      <p>One house, shared infrastructure, compounding advantage. Every brand we launch makes the next one stronger.</p>
+    </div>
+  </div>
+
+  <div class="process-cta">
+    <a href="#contact" class="btn">Let's build your brand a home <span class="dot"></span></a>
+  </div>
+</section>
+
+
+<!-- ── CLIENTS ── -->
+<section class="clients" id="clients">
+  <div class="clients-top">
+    <p class="section-tag">[OUR CLIENTS]</p>
+    <h2>Industry leaders we've worked with, to help build a home for their brand.</h2>
+  </div>
+
+  <div class="clients-track">
+
+    <div class="client-card">
+      <img src="Images/51e69de9fe058c0cc868f3c83dd5f7215e8d8448.png" alt="Creator">
+    </div>
+
+    <div class="client-card">
+      <img src="Images/04327125b711233b731ddaa362d2b8151c0494d9.png" alt="Stephanie Odili">
+      <div class="card-tag-top orange">Music Artist <span class="dot"></span></div>
+      <div class="client-name">Stephanie<br>Odili</div>
+    </div>
+
+    <div class="client-card">
+      <img src="Images/cb970540e5a1d733739134a3001f16ffdedb17fa.png" alt="Deyemi Okanlawon">
+      <div class="card-tag-top orange">Actor <span class="dot"></span></div>
+      <div class="client-name">Deyemi<br>Okanlawon</div>
+    </div>
+
+    <div class="client-card">
+      <img src="Images/c8ce7cef68bc2d7918fc7bf3f6e46b9effc17f53.png" alt="LANA Spicy Snails">
+      <div class="card-tag-top orange">Product <span class="dot"></span></div>
+      <div class="client-name">LANA<br>Spicy Snails</div>
+    </div>
+
+    <div class="client-card" style="display:flex;align-items:center;justify-content:center;background:#F0EFE6;">
+      <img src="Images/3589616ac4ae07bb43bc05cad1e6242728bcbed5.png" alt="Nestlé" style="width:70%;height:auto;object-fit:contain;">
+    </div>
+
+    <div class="client-card" style="display:flex;align-items:center;justify-content:center;background:#CC1122;">
+      <img src="Images/ad0989ae6c337af62b15c4a47e6b1ccbe78e2711.png" alt="PZ Cussons" style="width:80%;height:auto;object-fit:contain;">
+    </div>
+
+    <div class="client-card" style="display:flex;align-items:center;justify-content:center;background:#0A1628;">
+      <img src="Images/fa60da56374491677c7ee4f1da8e38ed29c84e56.png" alt="LVMH" style="width:70%;height:auto;object-fit:contain;">
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ── LET'S TALK ── -->
+<section class="lets-talk" id="contact">
+  <p class="section-tag">[LET'S TALK]</p>
+  <h2>Products that solve real problems. Across Africa, the UK, and the Middle East, we're building the household brands of the creator era.</h2>
+  <a href="mailto:hello@numaos.co" class="btn">Build my brand <span class="dot"></span></a>
+</section>
+
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-links">
+    <a href="#">Instagram</a>
+    <a href="#">Linkedin</a>
+    <a href="#">Twitter (X)</a>
+    <a href="#">Portfolio</a>
+  </div>
+  <div class="footer-email">
+    <a href="mailto:hello@numaos.co">HELLO@NUMAOS.CO</a>
+  </div>
+  <div class="footer-bar">© 2026 Numa OS. All rights reserved.</div>
+</footer>
+
+</body>
+</html>
