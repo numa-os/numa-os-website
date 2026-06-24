@@ -48,7 +48,7 @@
       color: var(--black);
       font-size: 20px;
       font-weight: 500;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.02em;
       transition: opacity .2s;
     }
     .nav-links a:hover { opacity: .6; }
@@ -70,7 +70,7 @@
       margin-bottom: 48px;
       font-size: 20px;
       font-weight: 500;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.02em;
       color: var(--black);
     }
     .badge-circles { display: flex; align-items: center; }
@@ -88,7 +88,7 @@
       font-size: clamp(44px, 5.6vw, 80px);
       font-weight: 500;
       line-height: 102%;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.02em;
       color: var(--green);
       max-width: 1036px;
       margin: 0 auto 52px;
@@ -103,7 +103,7 @@
       font-style: italic;
       font-weight: 300;
       font-size: clamp(36px, 3.8vw, 54px);
-      letter-spacing: -0.05em;
+      letter-spacing: -0.02em;
       color: var(--lime);
       line-height: 102%;
     }
@@ -121,7 +121,7 @@
       font-size: 21px;
       font-family: 'Inter', sans-serif;
       font-weight: 500;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.02em;
       cursor: pointer;
       text-decoration: none;
       transition: opacity .2s;
@@ -136,14 +136,14 @@
     }
 
     /* ── CREATOR SCROLL ── */
-    .creators-scroll { padding: 0 0 80px 60px; }
+    .creators-scroll { padding: 0 0 80px 0; overflow: hidden; }
     .creators-track {
       display: flex;
+      align-items: flex-start;
       gap: 20px;
       overflow-x: auto;
       scrollbar-width: none;
-      padding-bottom: 8px;
-      padding-right: 60px;
+      padding-bottom: 88px;
     }
     .creators-track::-webkit-scrollbar { display: none; }
 
@@ -155,9 +155,27 @@
       position: relative;
       overflow: hidden;
     }
+    .creator-card:nth-child(even) { margin-top: 80px; }
+    .creator-card:first-child {
+      border-radius: 0 30px 30px 0;
+      width: 300px;
+    }
+    .creator-card:last-child {
+      border-radius: 30px 0 0 30px;
+      width: 300px;
+    }
     .creator-card img {
       width: 100%; height: 100%;
       object-fit: cover; object-position: top;
+    }
+    .creator-card:first-child img {
+      transform: scale(1.9);
+      transform-origin: center 55%;
+      object-position: center 35%;
+    }
+    .creator-card:last-child img {
+      transform: scale(1.2);
+      transform-origin: top center;
     }
     .card-bg { width: 100%; height: 100%; display: block; }
 
@@ -173,7 +191,7 @@
       font-style: italic;
       font-weight: 300;
       font-size: 30px;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.02em;
       line-height: 153%;
       text-transform: capitalize;
     }
@@ -192,7 +210,7 @@
       font-style: italic;
       font-weight: 300;
       font-size: 26px;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.02em;
       line-height: 153%;
       text-transform: capitalize;
     }
@@ -209,7 +227,7 @@
     .section-tag {
       font-size: 20px;
       font-weight: 500;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.02em;
       color: var(--orange);
       margin-bottom: 20px;
     }
@@ -223,13 +241,13 @@
     .house-header h2 {
       font-size: clamp(36px, 6vw, 86px);
       font-weight: 500;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.02em;
       line-height: 83%;
     }
     .house-header p {
       font-size: 22px;
       font-weight: 500;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.02em;
       line-height: 130%;
       color: var(--green);
     }
@@ -241,44 +259,36 @@
     .house-card {
       border-radius: 32px;
       overflow: hidden;
-      height: 728px;
+      height: 820px;
       position: relative;
-      display: flex;
-      flex-direction: column;
     }
     .house-card-img {
-      flex: 1;
+      position: absolute;
+      inset: 0;
       background-size: cover;
       background-position: top center;
-      min-height: 380px;
+      z-index: 0;
     }
-    .house-card-body {
-      padding: 28px;
-      color: #fff;
-      font-size: 22px;
-      font-weight: 500;
-      letter-spacing: -0.05em;
-      line-height: 153%;
-    }
-    .beauty-card { background: var(--orange); }
-    .beauty-card .house-card-img { background-color: #d96020; }
-    .podcaster-card { background: #C4A8D0; }
-    .podcaster-card .house-card-img { background-color: #b096c0; }
-
-    /* gradient overlay on bottom of house cards */
     .house-card-overlay {
       position: absolute;
       bottom: 0; left: 0; right: 0;
-      height: 60%;
+      height: 50%;
       border-radius: 0 0 32px 32px;
-      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      background: linear-gradient(180deg, rgba(243,101,32,0) 0%, #F36520 100%);
+      z-index: 1;
     }
-    .beauty-card .house-card-overlay {
-      background: linear-gradient(180deg, rgba(243,101,32,0) 0%, #F36520 102%);
+    .house-card-body {
+      padding: 32px 15% 40px 15%;
+      color: #fff;
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 153%;
     }
-    .podcaster-card .house-card-overlay {
-      background: linear-gradient(180deg, rgba(243,101,32,0) 0%, #C4A8D0 102%);
-    }
+    .house-card .card-tag-top { z-index: 2; }
 
     /* ── TURNING ── */
     .turning {
@@ -290,7 +300,7 @@
       font-style: italic;
       font-weight: 400;
       font-size: clamp(36px, 5.8vw, 83px);
-      letter-spacing: -0.05em;
+      letter-spacing: -0.02em;
       color: var(--green);
       line-height: 83%;
       display: flex;
@@ -308,7 +318,7 @@
       font-style: italic;
       font-weight: 300;
       font-size: clamp(28px, 4.5vw, 64px);
-      letter-spacing: -0.05em;
+      letter-spacing: -0.02em;
       display: inline-flex;
       align-items: center;
     }
@@ -319,7 +329,7 @@
     .services-header h2 {
       font-size: clamp(36px, 6vw, 86px);
       font-weight: 500;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.02em;
       line-height: 83%;
       margin-top: 8px;
     }
@@ -346,7 +356,7 @@
       color: #fff;
       font-size: 22px;
       font-weight: 500;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.02em;
       line-height: 1.2;
     }
     .services-list { list-style: none; }
@@ -358,7 +368,7 @@
       color: var(--orange);
       font-size: 24px;
       font-weight: 500;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.02em;
       margin-bottom: 10px;
     }
     .service-row {
@@ -370,14 +380,14 @@
     .service-row h3 {
       font-size: 26px;
       font-weight: 500;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.02em;
       color: var(--black);
       line-height: 1.2;
     }
     .service-row p {
       font-size: 22px;
       font-weight: 500;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.02em;
       color: var(--gray);
       line-height: 139%;
     }
@@ -396,7 +406,7 @@
     .process-header h2 {
       font-size: clamp(36px, 6vw, 86px);
       font-weight: 500;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.02em;
       line-height: 86%;
       max-width: 514px;
     }
@@ -408,13 +418,13 @@
       color: var(--orange);
       font-size: 24px;
       font-weight: 500;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.02em;
       margin-bottom: 12px;
     }
     .process-item h3 {
       font-size: 50px;
       font-weight: 500;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.02em;
       color: var(--black);
       line-height: 102%;
       margin-bottom: 12px;
@@ -422,26 +432,26 @@
     .process-item p {
       font-size: 26px;
       font-weight: 400;
-      letter-spacing: -0.06em;
+      letter-spacing: -0.03em;
       color: var(--black);
       line-height: 135%;
     }
     .process-cta { text-align: center; margin-top: 72px; }
 
     /* ── CLIENTS ── */
-    .clients { padding: 80px 0 80px 60px; }
+    .clients { padding: 80px 0; overflow: hidden; }
     .clients-top {
       display: grid;
       grid-template-columns: 1fr 2fr;
       gap: 40px;
       align-items: end;
       margin-bottom: 48px;
-      padding-right: 60px;
+      padding: 0 60px;
     }
     .clients-top h2 {
       font-size: clamp(28px, 4vw, 56px);
       font-weight: 500;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.02em;
       line-height: 1.15;
     }
     .clients-track {
@@ -449,7 +459,6 @@
       gap: 24px;
       overflow-x: auto;
       scrollbar-width: none;
-      padding-right: 60px;
     }
     .clients-track::-webkit-scrollbar { display: none; }
     .client-card {
@@ -460,19 +469,34 @@
       overflow: hidden;
       position: relative;
     }
+    .client-card:first-child { margin-left: -120px; }
+    .client-card:last-child  { width: 304px; margin-right: 0; }
     .client-card img {
       width: 100%; height: 100%;
       object-fit: cover; object-position: top;
+    }
+    .client-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(14,58,42,0) 0%, rgba(14,58,42,0.45) 100%);
+      border-radius: 30px;
     }
     .client-card-bg { width: 100%; height: 100%; display: block; }
     .client-name {
       position: absolute;
       bottom: 28px; left: 28px;
       color: #fff;
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: -0.05em;
-      line-height: 1.2;
+      font-size: 40px;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 102%;
+      z-index: 2;
+    }
+    .client-card .card-tag-top {
+      font-size: 20px;
+      padding: 6px 14px;
+      z-index: 2;
     }
 
     /* ── LET'S TALK ── */
@@ -483,7 +507,7 @@
     .lets-talk h2 {
       font-size: clamp(24px, 3.5vw, 44px);
       font-weight: 500;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.02em;
       line-height: 139%;
       max-width: 868px;
       margin: 16px auto 52px;
@@ -502,7 +526,7 @@
       color: var(--black);
       font-size: 20px;
       font-weight: 500;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.02em;
       transition: opacity .2s;
     }
     .footer-links a:hover { opacity: .6; }
@@ -514,7 +538,7 @@
       display: block;
       font-size: clamp(32px, 9vw, 130px);
       font-weight: 600;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.02em;
       color: var(--black);
       text-decoration: none;
       line-height: 102%;
@@ -529,7 +553,7 @@
       padding: 24px;
       font-size: 20px;
       font-weight: 500;
-      letter-spacing: -0.05em;
+      letter-spacing: -0.02em;
       margin-top: 40px;
     }
 
@@ -657,20 +681,22 @@
   <div class="creator-cards-grid">
 
     <div class="house-card beauty-card">
+      <div class="house-card-img" style="background-image:url('Images/67cc9cd35b2cd45b86745d928369104b53318748.png');"></div>
       <div class="card-tag-top dark">Beauty creator <span class="dot"></span></div>
-      <div class="house-card-img" style="background-image:url('Images/67cc9cd35b2cd45b86745d928369104b53318748.png');background-size:cover;background-position:top center;"></div>
-      <div class="house-card-overlay"></div>
-      <div class="house-card-body">
-        A creator brings trust, taste, and millions of people who already love them. Numa brings everything else that is required to build a sustainable company, and together we launch a real company.
+      <div class="house-card-overlay">
+        <div class="house-card-body">
+          A creator brings trust, taste, and millions of people who already love them. Numa brings everything else that is required to build a sustainable company, and together we launch a real company.
+        </div>
       </div>
     </div>
 
     <div class="house-card podcaster-card">
+      <div class="house-card-img" style="background-image:url('Images/aafcb30555c0fd10130058fda8ae98302a2e5623.png');"></div>
       <div class="card-tag-top dark">Podcaster <span class="dot"></span></div>
-      <div class="house-card-img" style="background-image:url('Images/aafcb30555c0fd10130058fda8ae98302a2e5623.png');background-size:cover;background-position:top center;"></div>
-      <div class="house-card-overlay"></div>
-      <div class="house-card-body">
-        We do not manage talent. We build companies with them. Every brand in the Numa portfolio is engineered to do one thing; earn a permanent place in your home. On the shelf. In the fridge. In your routine.
+      <div class="house-card-overlay">
+        <div class="house-card-body">
+          We do not manage talent. We build companies with them. Every brand in the Numa portfolio is engineered to do one thing; earn a permanent place in your home. On the shelf. In the fridge. In your routine.
+        </div>
       </div>
     </div>
 
@@ -799,19 +825,19 @@
     </div>
 
     <div class="client-card">
-      <img src="Images/04327125b711233b731ddaa362d2b8151c0494d9.png" alt="Stephanie Odili">
+      <img src="Images/04327125b711233b731ddaa362d2b8151c0494d9.png" alt="Stephanie Odili" style="transform: scale(1.1) translateY(-3%); transform-origin: left top;">
       <div class="card-tag-top orange">Music Artist <span class="dot"></span></div>
       <div class="client-name">Stephanie<br>Odili</div>
     </div>
 
     <div class="client-card">
-      <img src="Images/cb970540e5a1d733739134a3001f16ffdedb17fa.png" alt="Deyemi Okanlawon">
+      <img src="Images/cb970540e5a1d733739134a3001f16ffdedb17fa.png" alt="Deyemi Okanlawon" style="transform: scale(1.35); transform-origin: center top;">
       <div class="card-tag-top orange">Actor <span class="dot"></span></div>
       <div class="client-name">Deyemi<br>Okanlawon</div>
     </div>
 
     <div class="client-card">
-      <img src="Images/c8ce7cef68bc2d7918fc7bf3f6e46b9effc17f53.png" alt="LANA Spicy Snails">
+      <img src="Images/c8ce7cef68bc2d7918fc7bf3f6e46b9effc17f53.png" alt="LANA Spicy Snails" style="object-position: 0% 90%;">
       <div class="card-tag-top orange">Product <span class="dot"></span></div>
       <div class="client-name">LANA<br>Spicy Snails</div>
     </div>
@@ -841,6 +867,24 @@
   </div>
   <div class="footer-bar">© 2026 Numa OS. All rights reserved.</div>
 </footer>
+
+<script>
+(function(){
+  var startX, startY;
+  document.addEventListener('touchstart', function(e){
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+  }, { passive: true });
+  document.addEventListener('touchend', function(e){
+    var dx = e.changedTouches[0].clientX - startX;
+    var dy = e.changedTouches[0].clientY - startY;
+    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 80) {
+      if (e.target.closest('.creators-track, .clients-track')) return;
+      if (dx < 0) window.location.href = 'about.html';
+    }
+  }, { passive: true });
+})();
+</script>
 
 </body>
 </html>
