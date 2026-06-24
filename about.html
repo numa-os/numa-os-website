@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us — Numa OS</title>
+  <meta name="description" content="Numa builds the brands that people choose by heart.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,300;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:     #E8E7DD;
+      --green:  #0E3A2A;
+      --orange: #F36520;
+      --lime:   #D7F58E;
+      --sage:   #D9E5BA;
+      --black:  #000000;
+      --gray:   #494949;
+      --mid:    #5E5E5E;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--green);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 60px;
+      position: sticky;
+      top: 0;
+      background: var(--bg);
+      z-index: 100;
+    }
+    .nav-links { display: flex; gap: 56px; list-style: none; }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--black);
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      transition: opacity .2s;
+    }
+    .nav-links a:hover { opacity: .6; }
+    .nav-links a.active { color: var(--orange); text-decoration: underline; }
+    .nav-logo { width: 64px; height: 64px; display: block; flex-shrink: 0; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      border-radius: 54px;
+      padding: 26px 38px 27px;
+      font-size: 21px;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      cursor: pointer;
+      text-decoration: none;
+      transition: opacity .2s;
+    }
+    .btn:hover { opacity: .88; }
+    .dot {
+      width: 15px; height: 15px;
+      background: var(--lime);
+      border-radius: 50%;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+    .section-tag {
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      color: var(--orange);
+      margin-bottom: 20px;
+    }
+
+    /* ── HERO ── */
+    .about-hero {
+      padding: 60px 60px 80px;
+      text-align: center;
+    }
+    .about-hero h1 {
+      font-size: clamp(44px, 6.6vw, 95px);
+      font-weight: 500;
+      line-height: 102%;
+      letter-spacing: -0.05em;
+      color: var(--green);
+      max-width: 860px;
+      margin: 0 auto 40px;
+    }
+    .hero-pill {
+      display: inline-block;
+      height: 80px;
+      border-radius: 80px;
+      overflow: hidden;
+      vertical-align: middle;
+      position: relative;
+      top: -4px;
+    }
+    .hero-pill img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .hero-pill-sm { width: 156px; }
+    .hero-pill-lg { width: 234px; }
+    .about-hero .sub {
+      font-size: 24px;
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      line-height: 139%;
+      color: var(--gray);
+      max-width: 868px;
+      margin: 0 auto 52px;
+    }
+
+    /* ── CREATOR STRIP ── */
+    .creator-strip { padding: 0 80px 80px; }
+    .strip-grid {
+      display: grid;
+      grid-template-columns: 295fr 298fr 297fr 295fr;
+      height: 631px;
+      border-radius: 32px;
+      overflow: hidden;
+    }
+    .strip-panel {
+      position: relative;
+      overflow: hidden;
+    }
+    .strip-panel img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+    }
+    .panel-2 { background: var(--lime); }
+    .panel-4 { background: #21342A; }
+    .strip-label {
+      position: absolute;
+      bottom: 24px;
+      left: 20px;
+      background: var(--green);
+      color: var(--lime);
+      border-radius: 63px;
+      padding: 10px 18px;
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 26px;
+      letter-spacing: -0.05em;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* ── WHY WE BUILD ── */
+    .why-build { padding: 80px 60px 60px; }
+    .why-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+      margin-bottom: 48px;
+    }
+    .why-header h2 {
+      font-size: clamp(36px, 5.9vw, 86px);
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      line-height: 92%;
+      text-decoration: underline;
+      text-underline-offset: 8px;
+    }
+    .why-header p {
+      font-size: 24px;
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      line-height: 139%;
+      color: var(--gray);
+      padding-top: 8px;
+    }
+    .brand-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 24px;
+    }
+    .brand-card {
+      border-radius: 32px;
+      overflow: hidden;
+      height: 447px;
+    }
+    .brand-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* ── ENGINE TEXT ── */
+    .engine-text {
+      padding: 80px 60px;
+      text-align: center;
+    }
+    .engine-text p {
+      font-size: clamp(24px, 3.1vw, 44px);
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      line-height: 139%;
+      color: var(--gray);
+      max-width: 868px;
+      margin: 0 auto;
+    }
+    .engine-text .accent { color: var(--orange); }
+
+    /* ── GOAL CIRCLE ── */
+    .goal-section {
+      padding: 0 60px 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .goal-outer {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+    }
+    .goal-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 26px;
+      font-weight: 400;
+      letter-spacing: -0.05em;
+      color: var(--black);
+      padding: 0 32px;
+      flex-shrink: 0;
+    }
+    .goal-circle-wrap {
+      width: min(700px, calc(100vw - 240px));
+      height: min(700px, calc(100vw - 240px));
+      position: relative;
+      flex-shrink: 0;
+    }
+    .goal-circle {
+      width: 100%;
+      height: 100%;
+      background: var(--sage);
+      border-radius: 50%;
+      position: relative;
+    }
+    .goal-line-v {
+      position: absolute;
+      left: 50%; top: 0; bottom: 0;
+      width: 1px;
+      background: var(--green);
+      transform: translateX(-50%);
+    }
+    .goal-line-h {
+      position: absolute;
+      top: 50%; left: 0; right: 0;
+      height: 1px;
+      background: var(--green);
+    }
+    .goal-center {
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      background: var(--sage);
+      padding: 20px 40px;
+      width: min(500px, 90%);
+    }
+    .goal-center .section-tag { margin-bottom: 12px; }
+    .goal-center p {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(20px, 2.4vw, 34px);
+      letter-spacing: -0.05em;
+      line-height: 120%;
+      color: var(--black);
+      text-transform: capitalize;
+    }
+
+    /* ── PARTNER SECTION ── */
+    .partner-section {
+      padding: 80px 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+    .partner-left h2 {
+      font-size: clamp(28px, 4.4vw, 64px);
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      line-height: 92%;
+      color: var(--green);
+      margin-bottom: 32px;
+    }
+    .partner-left .sub-p {
+      font-size: 26px;
+      font-weight: 400;
+      letter-spacing: -0.05em;
+      line-height: 108%;
+      color: var(--mid);
+      margin-bottom: 20px;
+    }
+    .partner-card {
+      border-radius: 32px;
+      overflow: hidden;
+      height: 608px;
+      position: relative;
+    }
+    .partner-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+    }
+    .partner-tag {
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      background: var(--lime);
+      color: var(--green);
+      border-radius: 63px;
+      padding: 10px 18px;
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 26px;
+      letter-spacing: -0.05em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .partner-tag .dot { background: var(--green); }
+    .creator-bg { background: linear-gradient(180deg, #0E3A2A 0%, #D7F58E 100%); }
+    .expert-bg  { background: linear-gradient(180deg, #F36520 0%, #D7F58E 100%); }
+
+    /* ── ENGINE QUOTE ── */
+    .engine-quote {
+      background: var(--sage);
+      padding: 72px 60px;
+      text-align: center;
+    }
+    .engine-quote p {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(32px, 5.2vw, 75px);
+      letter-spacing: -0.05em;
+      line-height: 118%;
+      color: var(--black);
+    }
+    .epill {
+      display: inline-flex;
+      align-items: center;
+      background: var(--green);
+      color: var(--lime);
+      border-radius: 56px;
+      padding: 2px 28px 8px;
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: clamp(28px, 4.2vw, 65px);
+      letter-spacing: -0.05em;
+      vertical-align: middle;
+      line-height: 1;
+    }
+
+    /* ── WHO WE PARTNER WITH ── */
+    .who-section {
+      padding: 80px 60px 100px;
+      text-align: center;
+    }
+    .who-row1 {
+      font-size: clamp(36px, 7.8vw, 112px);
+      font-weight: 500;
+      letter-spacing: -0.08em;
+      line-height: 92%;
+      color: var(--green);
+      display: block;
+      margin-bottom: 8px;
+    }
+    .who-row2 {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    .avatar-group {
+      display: flex;
+      align-items: center;
+    }
+    .avatar-circle {
+      width: 126px; height: 126px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 1.26px solid var(--black);
+      flex-shrink: 0;
+    }
+    .avatar-circle + .avatar-circle { margin-left: -32px; }
+    .avatar-circle {
+      background-repeat: no-repeat;
+    }
+    .atype {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(36px, 7.8vw, 112px);
+      letter-spacing: -0.08em;
+      line-height: 92%;
+      color: var(--orange);
+    }
+    .who-pills {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+    .who-pill {
+      background: var(--green);
+      color: var(--lime);
+      border-radius: 63px;
+      padding: 14px 26px;
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-weight: 300;
+      font-size: 30px;
+      letter-spacing: -0.05em;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .who-desc {
+      font-size: 30px;
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      line-height: 138%;
+      color: var(--green);
+      max-width: 988px;
+      margin: 0 auto 52px;
+    }
+
+    /* ── FOOTER ── */
+    footer { border-top: 2px solid #A5A5A5; }
+    .footer-links {
+      display: flex;
+      justify-content: space-around;
+      padding: 40px 130px;
+    }
+    .footer-links a {
+      text-decoration: none;
+      color: var(--black);
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      transition: opacity .2s;
+    }
+    .footer-links a:hover { opacity: .6; }
+    .footer-email { padding: 0 28px; overflow: hidden; }
+    .footer-email a {
+      display: block;
+      font-size: clamp(32px, 9vw, 130px);
+      font-weight: 600;
+      letter-spacing: -0.05em;
+      color: var(--black);
+      text-decoration: none;
+      line-height: 102%;
+      text-align: center;
+      transition: opacity .2s;
+    }
+    .footer-email a:hover { opacity: .7; }
+    .footer-bar {
+      background: var(--green);
+      color: #fff;
+      text-align: center;
+      padding: 24px;
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      margin-top: 40px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      nav { padding: 16px 24px; }
+      .nav-links { gap: 24px; }
+      .nav-links a { font-size: 16px; }
+      .about-hero { padding: 40px 24px 60px; }
+      .creator-strip { padding: 0 0 60px; }
+      .strip-grid { grid-template-columns: 1fr 1fr; height: auto; border-radius: 0; }
+      .strip-panel { height: 320px; }
+      .why-build { padding: 60px 24px; }
+      .why-header { grid-template-columns: 1fr; gap: 20px; }
+      .brand-cards { grid-template-columns: 1fr; }
+      .brand-card { height: 300px; }
+      .engine-text { padding: 60px 24px; }
+      .goal-section { padding: 0 24px 60px; }
+      .goal-label { display: none; }
+      .partner-section { padding: 60px 24px; grid-template-columns: 1fr; }
+      .partner-card { height: 450px; }
+      .engine-quote { padding: 60px 24px; }
+      .who-section { padding: 60px 24px 80px; }
+      .who-pill { font-size: 22px; padding: 10px 18px; }
+      .who-desc { font-size: 22px; }
+      .avatar-circle { width: 80px; height: 80px; }
+      .footer-links { padding: 32px 24px; flex-wrap: wrap; gap: 20px; justify-content: flex-start; }
+      .footer-email { padding: 0 16px; }
+      .footer-bar { margin-top: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav>
+  <ul class="nav-links">
+    <li><a href="about.html" class="active">About Us</a></li>
+    <li><a href="https://substack.com/@aishahussaini" target="_blank" rel="noopener">Stories</a></li>
+  </ul>
+
+  <a href="index.html" class="nav-logo" aria-label="Numa OS">
+    <svg viewBox="0 0 91 91" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="45.5" cy="45.5" r="45.5" fill="#0E3A2A" stroke="#E1FBB3" stroke-width="1.66"/>
+      <line x1="45.5" y1="19" x2="45.5" y2="88" stroke="#E1FBB3" stroke-width="1.25" stroke-linecap="round"/>
+      <line x1="45.5" y1="72" x2="69" y2="72" stroke="#E1FBB3" stroke-width="1.25" stroke-linecap="round"/>
+      <line x1="45.5" y1="62" x2="65" y2="62" stroke="#E1FBB3" stroke-width="1.25" stroke-linecap="round"/>
+      <line x1="45.5" y1="52" x2="59" y2="52" stroke="#E1FBB3" stroke-width="1.25" stroke-linecap="round"/>
+      <line x1="45.5" y1="42" x2="53" y2="42" stroke="#E1FBB3" stroke-width="1.25" stroke-linecap="round"/>
+      <line x1="45.5" y1="32" x2="48" y2="32" stroke="#E1FBB3" stroke-width="1.25" stroke-linecap="round"/>
+      <line x1="45.5" y1="72" x2="22" y2="72" stroke="#E1FBB3" stroke-width="1.25" stroke-linecap="round"/>
+      <line x1="45.5" y1="62" x2="26" y2="62" stroke="#E1FBB3" stroke-width="1.25" stroke-linecap="round"/>
+      <line x1="45.5" y1="52" x2="32" y2="52" stroke="#E1FBB3" stroke-width="1.25" stroke-linecap="round"/>
+      <line x1="45.5" y1="42" x2="38" y2="42" stroke="#E1FBB3" stroke-width="1.25" stroke-linecap="round"/>
+      <line x1="45.5" y1="32" x2="43" y2="32" stroke="#E1FBB3" stroke-width="1.25" stroke-linecap="round"/>
+    </svg>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="index.html#clients">Clients</a></li>
+    <li><a href="index.html#services">Services</a></li>
+  </ul>
+</nav>
+
+
+<!-- ── HERO ── -->
+<section class="about-hero">
+  <p class="section-tag">[ABOUT US]</p>
+  <h1>
+    Numa builds
+    <span class="hero-pill hero-pill-sm"><img src="Images/d8b8205a05457c777adf5273aca5b383bbb13b6e.png" alt="" style="object-position: center 22%;"></span>
+    the brands
+    <span class="hero-pill hero-pill-lg"><img src="Images/b7f8a701c4d1d4e0bd3775d2e7c2fcb9a7d5d0dc.png" alt="" style="object-position: center 20%; transform: scale(1.15); transform-origin: top center;"></span>
+    that people choose by heart
+  </h1>
+  <p class="sub">We build companies from the ground up; products made to land in people's hands, homes, and everyday rituals, and to genuinely improve the moment they're used.</p>
+  <a href="mailto:hello@numaos.co" class="btn">Let's build together <span class="dot"></span></a>
+</section>
+
+
+<!-- ── CREATOR STRIP ── -->
+<section class="creator-strip">
+  <div class="strip-grid">
+
+    <div class="strip-panel">
+      <img src="Images/798599043a1ffc99e19b39c5a6a63dcd1c190046.png" alt="Photographer">
+      <div class="strip-label">Photographer <span class="dot"></span></div>
+    </div>
+
+    <div class="strip-panel panel-2">
+      <img src="Images/51e69de9fe058c0cc868f3c83dd5f7215e8d8448.png" alt="Youtuber">
+      <div class="strip-label">Youtuber <span class="dot"></span></div>
+    </div>
+
+    <div class="strip-panel">
+      <img src="Images/b112474cb5e40679cd7c789695cc74fa29a31874.png" alt="Founder">
+      <div class="strip-label">Founder <span class="dot"></span></div>
+    </div>
+
+    <div class="strip-panel panel-4">
+      <img src="Images/4ff55cd64081f5805fdbbb5b7189b56d95fe8af3.png" alt="Model">
+      <div class="strip-label">Model <span class="dot"></span></div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ── WHY WE BUILD THIS WAY ── -->
+<section class="why-build">
+  <div class="why-header">
+    <div>
+      <p class="section-tag">[WHY WE BUILD THIS WAY]</p>
+      <h2>We take after the great multi-brand builders.</h2>
+    </div>
+    <p>And the houses like it; companies that proved a single disciplined operating engine could produce brand after brand, each one truly useful to the person who reaches for it.</p>
+  </div>
+
+  <div class="brand-cards">
+    <div class="brand-card">
+      <img src="Images/3589616ac4ae07bb43bc05cad1e6242728bcbed5.png" alt="Nestlé">
+    </div>
+    <div class="brand-card">
+      <img src="Images/ad0989ae6c337af62b15c4a47e6b1ccbe78e2711.png" alt="PZ Cussons">
+    </div>
+    <div class="brand-card">
+      <img src="Images/fa60da56374491677c7ee4f1da8e38ed29c84e56.png" alt="LVMH">
+    </div>
+  </div>
+</section>
+
+
+<!-- ── ENGINE TEXT ── -->
+<section class="engine-text">
+  <p>We're building that engine for a new generation of <span class="accent">products</span>, owned in <span class="accent">partnership</span> with <span class="accent">creators</span>, across <span class="accent">multiple markets</span>.</p>
+</section>
+
+
+<!-- ── THE GOAL CIRCLE ── -->
+<section class="goal-section">
+  <div class="goal-outer">
+    <span class="goal-label">THE</span>
+    <div class="goal-circle-wrap">
+      <div class="goal-circle">
+        <div class="goal-line-v"></div>
+        <div class="goal-line-h"></div>
+        <div class="goal-center">
+          <p class="section-tag">[HOW WE BEGIN]</p>
+          <p>Every Numa Brand Starts With A Gap; A Problem, An Opportunity, Or A White Space. That's Our Signal.</p>
+        </div>
+      </div>
+    </div>
+    <span class="goal-label">GOAL</span>
+  </div>
+</section>
+
+
+<!-- ── THEN WE PARTNER ── -->
+<section class="partner-section">
+
+  <div class="partner-left">
+    <h2>Then we partner with the individual who speaks to it.</h2>
+    <p class="sub-p">Someone who built a real, trusting community simply by being themselves.</p>
+    <p class="sub-p">In consumer, that trust is the rarest asset there is, &nbsp;and we turn it into products people are proud to own.</p>
+    <a href="mailto:hello@numaos.co" class="btn" style="margin-top:12px;">Let's build together <span class="dot"></span></a>
+  </div>
+
+  <div class="partner-card creator-bg">
+    <div class="partner-tag">A Creator <span class="dot"></span></div>
+    <img src="Images/1a3465ed547728a436b54a76a534240b6584536c.png" alt="A Creator">
+  </div>
+
+  <div class="partner-card expert-bg">
+    <div class="partner-tag">An Expert <span class="dot"></span></div>
+    <img src="Images/87ed45dd446dfd2d4ef0a69f2378372245bac206.png" alt="An Expert">
+  </div>
+
+</section>
+
+
+<!-- ── ENGINE QUOTE ── -->
+<section class="engine-quote">
+  <p>We bring the <span class="epill">engine</span>.</p>
+  <p>They bring the <span class="epill">world</span> they've already earned.</p>
+</section>
+
+
+<!-- ── WHO WE PARTNER WITH ── -->
+<section class="who-section">
+  <p class="section-tag">[WHO WE PARTNER WITH]</p>
+
+  <span class="who-row1">We don't have</span>
+
+  <div class="who-row2">
+    <div class="avatar-group">
+      <div class="avatar-circle" style="background-image:url('Images/833342885495293995a5c270f9161ae6bed32fc0.png'); background-size:120%; background-position:center top;"></div>
+      <div class="avatar-circle" style="background-image:url('Images/1bbd03242f6643549082c867c7366d3e5f21c008.png'); background-size:130%; background-position:center 3%;"></div>
+      <div class="avatar-circle" style="background-image:url('Images/ad3c91d956341041644c1e52b611933cb556cc34.png'); background-size:100%; background-position:center 2%;"></div>
+      <div class="avatar-circle" style="background-image:url('Images/089a8c98ca55fcbca6255c79e1d6c4fb7e3a3e8e.png'); background-size:140%; background-position:center 2%;"></div>
+    </div>
+    <span class="atype">a type.</span>
+  </div>
+
+  <div class="who-pills">
+    <span class="who-pill">Creator <span class="dot"></span></span>
+    <span class="who-pill">Specialist <span class="dot"></span></span>
+    <span class="who-pill">Founders <span class="dot"></span></span>
+  </div>
+
+  <p class="who-desc">Someone with an audience, with or without the seed of an idea; there's no checklist and no gatekeeping. If you've earned people's attention by being real, there's a brand in you we can build.</p>
+
+  <a href="mailto:hello@numaos.co" class="btn">Introduce yourself <span class="dot"></span></a>
+</section>
+
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-links">
+    <a href="#">Instagram</a>
+    <a href="#">Linkedin</a>
+    <a href="#">Twitter (X)</a>
+    <a href="#">Portfolio</a>
+  </div>
+  <div class="footer-email">
+    <a href="mailto:hello@numaos.co">HELLO@NUMAOS.CO</a>
+  </div>
+  <div class="footer-bar">© 2026 Numa OS. All rights reserved.</div>
+</footer>
+
+</body>
+</html>
